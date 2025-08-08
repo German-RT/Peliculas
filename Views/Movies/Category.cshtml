@@ -1,0 +1,58 @@
+@model List<Tarea_2.Models.Movie>
+
+@{
+    ViewData["Title"] = "Películas";
+    var genres = new[] {
+        "Acción", "Animación", "Aventura", "Bélica", "Ciencia ficción",
+        "Comedia", "Crimen", "Documental", "Drama", "Familia",
+        "Fantasía", "Historia", "Misterio", "Música", "Película de TV",
+        "Romance", "Suspense", "Terror", "Western"
+    };
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Barra lateral de géneros -->
+        <div class="col-md-2">
+            <h5 class="mt-3">Géneros</h5>
+            <div class="d-flex flex-wrap gap-1">
+                @foreach (var genre in genres)
+                {
+                    <form method="get" asp-action="Category" asp-controller="Movies">
+                        <input type="hidden" name="id" value="@genre.ToLower().Replace(" ", "-")" />
+                        <button type="submit" class="btn btn-outline-secondary btn-sm">@genre</button>
+                    </form>
+                }
+            </div>
+        </div>
+
+        <!-- Tarjetas de películas -->
+        <div class="col-md-10">
+            <div class="row mt-3">
+                @if (!Model.Any())
+                {
+                    <p>No hay películas en esta categoría.</p>
+                }
+                else
+                {
+                    @foreach (var movie in Model)
+                    {
+                        <div class="col-md-3 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <!-- Imagen por defecto si no hay URL -->
+                                <img src="https://via.placeholder.com/300x450?text=@movie.Title" class="card-img-top" alt="@movie.Title" />
+                                <div class="card-body">
+                                    <h6 class="card-title">@movie.Title</h6>
+                                    <p class="card-text text-muted">@movie.Year</p>
+                                    <p class="card-text small">@movie.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+@model List<Tarea_2.Models.Movie>
+@{
+    ViewData["Title"] = "Películas";
+    var categories = ViewBag.Categories as Dictionary<string, string>;
+    var genreName = ViewBag.GenreName as string;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-2">
+            <h5>Géneros</h5>
+            <div class="d-flex flex-column gap-2">
+                <a href="@Url.Action("Index", "Movies")" class="btn btn-outline-secondary btn-sm @(genreName == "Todas" ? "active" : "")">Todas</a>
+                @if (categories != null)
+                {
+                    foreach (var category in categories)
+                    {
+                        <a href="@Url.Action("Index", "Movies", new { id = category.Key })"
+                           class="btn btn-outline-primary btn-sm @(genreName == category.Value ? "active" : "")">
+                            @category.Value
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <h2>@genreName</h2>
+            <div class="row">
+                @foreach (var movie in Model)
+                {
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <img src="@movie.PosterUrl" class="card-img-top" alt="Poster de @movie.Title" style="height: 300px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">@movie.Title</h5>
+                                <p class="card-text text-muted"><small>@movie.Year</small></p>
+                                <p class="card-text">@movie.Description</p>
+                                <span class="badge bg-secondary mt-auto">@movie.Category?.ToUpper()</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

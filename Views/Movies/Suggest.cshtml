@@ -1,0 +1,39 @@
+@model Tarea_2.Models.SuggestedMovie
+
+@{
+    ViewData["Title"] = "Sugerir Película";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Suggest" method="post" class="mt-4">
+    <div class="form-group mb-3">
+        <label asp-for="Title" class="form-label">Título</label>
+        <input asp-for="Title" class="form-control" placeholder="Ej. Your Name" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Genre" class="form-label">Género</label>
+        <input asp-for="Genre" class="form-control" placeholder="Ej. Animación" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Year" class="form-label">Año de estreno</label>
+        <input asp-for="Year" class="form-control" placeholder="Ej. 2023" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Reason" class="form-label">¿Por qué la recomiendas?</label>
+        <textarea asp-for="Reason" class="form-control" placeholder="Breve explicación..."></textarea>
+        <span asp-validation-for="Reason" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar sugerencia</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
