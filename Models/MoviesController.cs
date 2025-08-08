@@ -15,7 +15,6 @@ namespace Tarea_2.Controllers
             { "romance", "Romance" }
         };
 
-        // Lista de películas ya cargadas
         private static readonly List<Movie> LoadedMovies = new()
         {
             new Movie
@@ -78,7 +77,7 @@ namespace Tarea_2.Controllers
         [HttpGet]
         public IActionResult Suggest()
         {
-            return View(new SuggestedMovie()); // ✅ Correcto
+            return View(new SuggestedMovie());
         }
 
 
